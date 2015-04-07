@@ -15,7 +15,7 @@ var SensorTag = require('sensortag');
 		temperature: 0
 	},
 	config = {
-		print: false,
+		print: true,
 		temperature: {
 			curr: 25,
 			min: 20,

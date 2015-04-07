@@ -47,6 +47,8 @@ SensorTag.discover(function(sensorTag) {
 		console.log('connect');
 		sensorTag.discoverServicesAndCharacteristics(function() {
 			console.log('discoverServicesAndCharacteristics');
+			// to get sensortag uuid
+			console.log(sensorTag.uuid);
 
 			setInterval(function () {
 				printVariables();
@@ -82,6 +84,7 @@ SensorTag.discover(function(sensorTag) {
 			// 	});
 			// });				
 
+
 			// enable collection of humidity & temperature
 			sensorTag.enableHumidity(function() {
 				sensorTag.on('humidityChange', function(temperature, humidity) {
@@ -103,7 +106,9 @@ SensorTag.discover(function(sensorTag) {
 					
 					//console.log(x);  //test log
 				});
-				sensorTag.setAccelerometerPeriod(50, function () {
+
+				// period 1 - 2550 ms, default period is 2000 ms
+				sensorTag.setAccelerometerPeriod(1, function () {
 					sensorTag.readAccelerometer(function (x, y, z) {
 						sensorData.xA = x;
 						sensorData.yA = y;
@@ -121,6 +126,15 @@ SensorTag.discover(function(sensorTag) {
 					sensorData.xG = x;
 					sensorData.yG = y;
 					sensorData.zG = z;
+				});
+				// period 100 - 2550 ms, default period is 1000 ms
+				// set Gyro-period
+				sensorTag.setGyroscopePeriod(50, function () {
+					sensorTag.readAccelerometer(function (x, y, z) {
+						sensorData.xG = x;
+						sensorData.yG = y;
+						sensorData.zG = z;
+					});
 				});
 				sensorTag.notifyGyroscope(function () {
 					console.log('notifyGyroscope');

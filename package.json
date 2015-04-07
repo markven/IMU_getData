@@ -1,0 +1,18 @@
+{
+  "name": "sensortag_test",
+  "version": "1.0.0",
+  "description": "pvd+ sensortag demo_ver_1",
+  "main": "app.js",
+  "dependencies": {
+    "sensortag": "^0.1.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sensortag"
+  ],
+  "author": "mark ven",
+  "license": "MIT"
+}

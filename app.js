@@ -52,34 +52,35 @@ SensorTag.discover(function(sensorTag) {
 				printVariables();
 			}, 1000);
 
-			// enable collection of key presses
-			sensorTag.notifySimpleKey(function() {
-				sensorTag.on('simpleKeyChange', function(left, right) {
-					// left button is only used to turn printing on/off
-					if (left) {
-						config.print = (config.print) ? false : true;
-						if (config.print) {
-							console.log('Printing Enabled');
-						} else {
-							console.log('Printing Disabled');
-						}
-					}
+			// //using key presses
+			// // enable collection of key presses
+			// sensorTag.notifySimpleKey(function() {
+			// 	sensorTag.on('simpleKeyChange', function(left, right) {
+			// 		// left button is only used to turn printing on/off
+			// 		if (left) {
+			// 			config.print = (config.print) ? false : true;
+			// 			if (config.print) {
+			// 				console.log('Printing Enabled');
+			// 			} else {
+			// 				console.log('Printing Disabled');
+			// 			}
+			// 		}
 
-					// right button can be used to toggle between humidity or temperature threshold change
-					if (right) {
-						// if click is within 250 milliseconds, switch click mode
-						var clickTime = new Date().getTime();
-						if ((config.leftButtonClickTime + 250) > clickTime) {
-							config.leftButtonClickMode = (config.leftButtonClickMode === 'temperature') ? 'humidity' : 'temperature';
-							console.log('leftButtonClickMode set to ' + config.leftButtonClickMode);
-						} else {
-							config[config.leftButtonClickMode].curr = (config[config.leftButtonClickMode].curr + 1 <= config[config.leftButtonClickMode].max) ? config[config.leftButtonClickMode].curr + 1 : config[config.leftButtonClickMode].min;
-							console.log(config.leftButtonClickMode + ' Threshold = ' + config[config.leftButtonClickMode].curr);
-						}
-						config.leftButtonClickTime = clickTime;
-					}
-				});
-			});				
+			// 		// right button can be used to toggle between humidity or temperature threshold change
+			// 		if (right) {
+			// 			// if click is within 250 milliseconds, switch click mode
+			// 			var clickTime = new Date().getTime();
+			// 			if ((config.leftButtonClickTime + 250) > clickTime) {
+			// 				config.leftButtonClickMode = (config.leftButtonClickMode === 'temperature') ? 'humidity' : 'temperature';
+			// 				console.log('leftButtonClickMode set to ' + config.leftButtonClickMode);
+			// 			} else {
+			// 				config[config.leftButtonClickMode].curr = (config[config.leftButtonClickMode].curr + 1 <= config[config.leftButtonClickMode].max) ? config[config.leftButtonClickMode].curr + 1 : config[config.leftButtonClickMode].min;
+			// 				console.log(config.leftButtonClickMode + ' Threshold = ' + config[config.leftButtonClickMode].curr);
+			// 			}
+			// 			config.leftButtonClickTime = clickTime;
+			// 		}
+			// 	});
+			// });				
 
 			// enable collection of humidity & temperature
 			sensorTag.enableHumidity(function() {

@@ -2,6 +2,10 @@
 
 var SensorTag = require('sensortag');
 
+//add expressjs
+var express = require('express');
+var app = express();
+
 //initialize
 
 	sensorData = {
@@ -12,7 +16,8 @@ var SensorTag = require('sensortag');
 		yG: 0, // Y gyroscope
 		zG: 0, // Z gyroscope
 		humidity: 0, 
-		temperature: 0
+		temperature: 0,
+		timeID: 0
 	},
 	config = {
 		print: true,
@@ -34,11 +39,17 @@ var SensorTag = require('sensortag');
 
 function printVariables() {
 	if (config.print && sensorData.temperature > config.temperature.curr && sensorData.humidity > config.humidity.curr) {
-		console.log('(%d, %d, %d) - (%d, %d, %d) - %d °C - %d %', 
+		console.log('(%d, %d, %d) - (%d, %d, %d) - %d °C - %d % - %s', 
 			sensorData.xA.toFixed(3), sensorData.yA.toFixed(3), sensorData.zA.toFixed(3), 
 			sensorData.xG.toFixed(3), sensorData.yG.toFixed(3), sensorData.zG.toFixed(3), 
-			sensorData.temperature.toFixed(1), sensorData.humidity.toFixed(1));
+			sensorData.temperature.toFixed(1), sensorData.humidity.toFixed(1), sensorData.timeID);
+		sensorData.timeID = sensorData.timeID+1;
 	}
+
+	//add time
+	var myDateNow = new Date(config.leftButtonClickTime);
+	config.leftButtonClickTime = myDateNow.toLocaleString();
+
 }
 
 SensorTag.discover(function(sensorTag) {
@@ -49,6 +60,7 @@ SensorTag.discover(function(sensorTag) {
 			console.log('discoverServicesAndCharacteristics');
 			// to get sensortag uuid
 			console.log(sensorTag.uuid);
+
 
 			setInterval(function () {
 				printVariables();
@@ -143,3 +155,11 @@ SensorTag.discover(function(sensorTag) {
 		});
 	});
 });
+
+// push for fronts
+
+app.get('/', function(req, res){
+	res.send(sensorData.xA.toFixed(3)+'<br>'+sensorData.yA.toFixed(3)+'<br>'+sensorData.zA.toFixed(3)+'<br>'+config.leftButtonClickTime);
+});
+
+app.listen(3000);

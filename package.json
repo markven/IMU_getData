@@ -4,6 +4,7 @@
   "description": "pvd+ sensortag demo_ver_1",
   "main": "app.js",
   "dependencies": {
+    "express": "^4.12.3",
     "sensortag": "^0.1.11"
   },
   "devDependencies": {},
